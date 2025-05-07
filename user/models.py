@@ -1,4 +1,3 @@
-# user/models.py
 from django.core.validators import RegexValidator
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
@@ -16,7 +15,7 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('role', 'specialist')  # Суперпользователь — специалист
+        extra_fields.setdefault('role', 'specialist')
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
@@ -42,8 +41,8 @@ class CustomUser(AbstractUser):
     otp_created_at = models.DateTimeField(null=True, blank=True)
 
     ROLE_CHOICES = (
-        ('specialist', 'Specialist'),  # Специалист, с кем пользователь может начать чат
-        ('user', 'User'),              # Пользователь, который начинает чат
+        ('specialist', 'Specialist'),
+        ('user', 'User'),
     )
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
     favorites = models.ManyToManyField('products.Product', related_name='favorited_by', blank=True)
