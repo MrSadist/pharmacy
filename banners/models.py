@@ -9,6 +9,5 @@ class Banner(models.Model):
     description_ru=models.TextField()
     description_en=models.TextField()
 
-
     def __str__(self):
         return self.title_en
